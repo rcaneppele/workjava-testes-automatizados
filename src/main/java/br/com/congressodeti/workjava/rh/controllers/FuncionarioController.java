@@ -84,8 +84,8 @@ public class FuncionarioController {
 			reajusteRepository.save(novo);
 			return "redirect:/funcionarios";
 		} catch (BusinessException e) {
-			model.addAttribute("msgErro", e.getMessage());
-			return "funcionario/reajuste";
+			model.addFlashAttribute("msgErro", e.getMessage());
+			return "redirect:/funcionarios/" +id +"/reajustes";
 		}
 		
 	}
