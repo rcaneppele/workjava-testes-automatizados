@@ -3,9 +3,12 @@ package br.com.congressodeti.workjava.rh.validacoes.funcionario.reajuste;
 import java.time.LocalDate;
 import java.time.Period;
 
+import org.springframework.stereotype.Service;
+
 import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
 import br.com.congressodeti.workjava.rh.models.Reajuste;
 
+@Service
 public class ValidadorPeriodoDeExperiencia implements ValidadorReajuste {
 	
 	@Override

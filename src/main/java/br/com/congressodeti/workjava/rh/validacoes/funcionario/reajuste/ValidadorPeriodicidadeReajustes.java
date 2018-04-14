@@ -2,10 +2,13 @@ package br.com.congressodeti.workjava.rh.validacoes.funcionario.reajuste;
 
 import java.time.Period;
 
+import org.springframework.stereotype.Service;
+
 import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
 import br.com.congressodeti.workjava.rh.models.Reajuste;
 import br.com.congressodeti.workjava.rh.repositories.ReajusteRepository;
 
+@Service
 public class ValidadorPeriodicidadeReajustes implements ValidadorReajuste {
 	
 	private final ReajusteRepository repository;

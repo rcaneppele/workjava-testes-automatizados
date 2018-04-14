@@ -17,6 +17,7 @@ import br.com.congressodeti.workjava.rh.models.Reajuste;
 import br.com.congressodeti.workjava.rh.repositories.CargoRepository;
 import br.com.congressodeti.workjava.rh.repositories.ReajusteRepository;
 import br.com.congressodeti.workjava.rh.services.funcionario.FuncionarioService;
+import br.com.congressodeti.workjava.rh.validacoes.funcionario.reajuste.ValidadorReajuste;
 
 @Controller
 @RequestMapping("/funcionarios")
@@ -25,11 +26,13 @@ public class FuncionarioController {
 	private final CargoRepository cargoRepository;
 	private final ReajusteRepository reajusteRepository;
 	private final FuncionarioService funcionarioService;
+	private final List<ValidadorReajuste> validadoresReajuste;
 	
-	public FuncionarioController(CargoRepository cargoRepository, ReajusteRepository reajusteRepository, FuncionarioService funcionarioService) {
+	public FuncionarioController(CargoRepository cargoRepository, ReajusteRepository reajusteRepository, FuncionarioService funcionarioService, List<ValidadorReajuste> validadoresReajuste) {
 		this.cargoRepository = cargoRepository;
 		this.reajusteRepository = reajusteRepository;
 		this.funcionarioService = funcionarioService;
+		this.validadoresReajuste = validadoresReajuste;
 	}
 
 	@GetMapping
@@ -75,8 +78,16 @@ public class FuncionarioController {
 	public String reajustar(@PathVariable("id") Long id, Reajuste novo, RedirectAttributes model) {
 		Funcionario selecionado = funcionarioService.buscarPorId(id);
 		novo.setFuncionario(selecionado);
-		reajusteRepository.save(novo);
-		return "redirect:/funcionarios";
+		
+		try {
+			validadoresReajuste.forEach(v -> v.valida(novo));
+			reajusteRepository.save(novo);
+			return "redirect:/funcionarios";
+		} catch (BusinessException e) {
+			model.addAttribute("msgErro", e.getMessage());
+			return "funcionario/reajuste";
+		}
+		
 	}
 
 }
