@@ -24,6 +24,12 @@
 			</div>
 		</c:if>
 		
+		<c:if test="${not empty msgSucesso}">
+			<div class="alert alert-success mt-2" role="alert">
+				<c:out value="${msgSucesso}"/>
+			</div>
+		</c:if>
+		
 		<jsp:doBody />
 	</div>
 	

@@ -49,9 +49,10 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping
-	public String salvar(Funcionario novo, Model model) {
+	public String salvar(Funcionario novo, Model model, RedirectAttributes attributes) {
 		try {
 			funcionarioService.salvar(novo);
+			attributes.addFlashAttribute("msgSucesso", "Funcionario cadastrado!");
 			return "redirect:/funcionarios";
 		} catch (BusinessException e) {
 			model.addAttribute("msgErro", e.getMessage());
@@ -60,8 +61,9 @@ public class FuncionarioController {
 	}
 	
 	@DeleteMapping
-	public String excluir(Long id) {
+	public String excluir(Long id, RedirectAttributes attributes) {
 		funcionarioService.excluir(id);
+		attributes.addFlashAttribute("msgSucesso", "Funcionario excluido!");
 		return "redirect:/funcionarios";
 	}
 	
@@ -75,16 +77,17 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping("/{id}/reajustes")
-	public String reajustar(@PathVariable("id") Long id, Reajuste novo, RedirectAttributes model) {
+	public String reajustar(@PathVariable("id") Long id, Reajuste novo, RedirectAttributes attributes) {
 		Funcionario selecionado = funcionarioService.buscarPorId(id);
 		novo.setFuncionario(selecionado);
 		
 		try {
 			validadoresReajuste.forEach(v -> v.valida(novo));
 			reajusteRepository.save(novo);
+			attributes.addFlashAttribute("msgSucesso", "Reajuste cadastrado!");
 			return "redirect:/funcionarios";
 		} catch (BusinessException e) {
-			model.addFlashAttribute("msgErro", e.getMessage());
+			attributes.addFlashAttribute("msgErro", e.getMessage());
 			return "redirect:/funcionarios/" +id +"/reajustes";
 		}
 		
