@@ -1,4 +1,4 @@
-package br.com.congressodeti.workjava.rh.exception;
+package br.com.congressodeti.workjava.rh.exceptions;
 
 public class BusinessException extends RuntimeException {
 

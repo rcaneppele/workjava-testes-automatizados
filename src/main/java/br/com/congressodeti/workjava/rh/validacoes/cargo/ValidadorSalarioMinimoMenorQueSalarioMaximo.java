@@ -1,9 +1,9 @@
-package br.com.congressodeti.workjava.rh.validacao.cargo;
+package br.com.congressodeti.workjava.rh.validacoes.cargo;
 
 import org.springframework.stereotype.Service;
 
-import br.com.congressodeti.workjava.rh.exception.BusinessException;
-import br.com.congressodeti.workjava.rh.model.Cargo;
+import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
+import br.com.congressodeti.workjava.rh.models.Cargo;
 
 @Service
 public class ValidadorSalarioMinimoMenorQueSalarioMaximo implements ValidadorCargo {

@@ -1,20 +1,27 @@
-package br.com.congressodeti.workjava.rh.model;
+package br.com.congressodeti.workjava.rh.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Cargo {
+public class Funcionario {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private BigDecimal salarioMinimo;
-	private BigDecimal salarioMaximo;
+	@ManyToOne
+	private Cargo cargo;
+	private BigDecimal salario;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataDeAdmissao;
 	
 	@Override
 	public int hashCode() {
@@ -32,7 +39,7 @@ public class Cargo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cargo other = (Cargo) obj;
+		Funcionario other = (Funcionario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -53,17 +60,23 @@ public class Cargo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public BigDecimal getSalarioMinimo() {
-		return salarioMinimo;
+	public Cargo getCargo() {
+		return cargo;
 	}
-	public void setSalarioMinimo(BigDecimal salarioMinimo) {
-		this.salarioMinimo = salarioMinimo;
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
-	public BigDecimal getSalarioMaximo() {
-		return salarioMaximo;
+	public BigDecimal getSalario() {
+		return salario;
 	}
-	public void setSalarioMaximo(BigDecimal salarioMaximo) {
-		this.salarioMaximo = salarioMaximo;
+	public void setSalario(BigDecimal salario) {
+		this.salario = salario;
+	}
+	public LocalDate getDataDeAdmissao() {
+		return dataDeAdmissao;
+	}
+	public void setDataDeAdmissao(LocalDate dataDeAdmissao) {
+		this.dataDeAdmissao = dataDeAdmissao;
 	}
 	
 }

@@ -1,4 +1,4 @@
-package br.com.congressodeti.workjava.rh.model;
+package br.com.congressodeti.workjava.rh.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,20 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
-public class Funcionario {
-
+public class Reajuste {
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private LocalDate data = LocalDate.now();
+	private String motivo;
+	private BigDecimal valor;
 	@ManyToOne
-	private Cargo cargo;
-	private BigDecimal salario;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataDeAdmissao;
-	
+	private Funcionario funcionario;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -39,7 +36,7 @@ public class Funcionario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Funcionario other = (Funcionario) obj;
+		Reajuste other = (Reajuste) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -54,29 +51,29 @@ public class Funcionario {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public LocalDate getData() {
+		return data;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
-	public Cargo getCargo() {
-		return cargo;
+	public String getMotivo() {
+		return motivo;
 	}
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
 	}
-	public BigDecimal getSalario() {
-		return salario;
+	public BigDecimal getValor() {
+		return valor;
 	}
-	public void setSalario(BigDecimal salario) {
-		this.salario = salario;
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
-	public LocalDate getDataDeAdmissao() {
-		return dataDeAdmissao;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	public void setDataDeAdmissao(LocalDate dataDeAdmissao) {
-		this.dataDeAdmissao = dataDeAdmissao;
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 	
 }

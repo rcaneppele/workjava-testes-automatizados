@@ -1,12 +1,12 @@
-package br.com.congressodeti.workjava.rh.service.funcionario;
+package br.com.congressodeti.workjava.rh.services.funcionario;
 
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
-import br.com.congressodeti.workjava.rh.exception.BusinessException;
-import br.com.congressodeti.workjava.rh.model.Cargo;
-import br.com.congressodeti.workjava.rh.model.Funcionario;
+import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
+import br.com.congressodeti.workjava.rh.models.Cargo;
+import br.com.congressodeti.workjava.rh.models.Funcionario;
 import br.com.congressodeti.workjava.rh.repositories.FuncionarioRepository;
 
 @Service

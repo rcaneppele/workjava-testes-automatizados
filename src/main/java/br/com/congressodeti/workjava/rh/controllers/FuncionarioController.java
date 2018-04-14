@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.congressodeti.workjava.rh.exception.BusinessException;
-import br.com.congressodeti.workjava.rh.model.Funcionario;
-import br.com.congressodeti.workjava.rh.model.Reajuste;
+import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
+import br.com.congressodeti.workjava.rh.models.Funcionario;
+import br.com.congressodeti.workjava.rh.models.Reajuste;
 import br.com.congressodeti.workjava.rh.repositories.CargoRepository;
 import br.com.congressodeti.workjava.rh.repositories.FuncionarioRepository;
 import br.com.congressodeti.workjava.rh.repositories.ReajusteRepository;
-import br.com.congressodeti.workjava.rh.service.funcionario.FuncionarioService;
+import br.com.congressodeti.workjava.rh.services.funcionario.FuncionarioService;
 
 @Controller
 @RequestMapping("/funcionarios")

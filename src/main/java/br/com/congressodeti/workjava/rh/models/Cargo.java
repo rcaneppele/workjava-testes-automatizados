@@ -1,25 +1,21 @@
-package br.com.congressodeti.workjava.rh.model;
+package br.com.congressodeti.workjava.rh.models;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
-public class Reajuste {
-	
+public class Cargo {
+
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private LocalDate data = LocalDate.now();
-	private String motivo;
-	private BigDecimal valor;
-	@ManyToOne
-	private Funcionario funcionario;
-
+	private String nome;
+	private BigDecimal salarioMinimo;
+	private BigDecimal salarioMaximo;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,7 +32,7 @@ public class Reajuste {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reajuste other = (Reajuste) obj;
+		Cargo other = (Cargo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -51,29 +47,23 @@ public class Reajuste {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public LocalDate getData() {
-		return data;
+	public String getNome() {
+		return nome;
 	}
-	public void setData(LocalDate data) {
-		this.data = data;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	public String getMotivo() {
-		return motivo;
+	public BigDecimal getSalarioMinimo() {
+		return salarioMinimo;
 	}
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
+	public void setSalarioMinimo(BigDecimal salarioMinimo) {
+		this.salarioMinimo = salarioMinimo;
 	}
-	public BigDecimal getValor() {
-		return valor;
+	public BigDecimal getSalarioMaximo() {
+		return salarioMaximo;
 	}
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setSalarioMaximo(BigDecimal salarioMaximo) {
+		this.salarioMaximo = salarioMaximo;
 	}
 	
 }

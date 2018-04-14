@@ -1,12 +1,13 @@
-package br.com.congressodeti.workjava.rh.validacao.cargo;
+package br.com.congressodeti.workjava.rh.validacoes.cargo;
 
 import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.congressodeti.workjava.rh.exception.BusinessException;
-import br.com.congressodeti.workjava.rh.model.Cargo;
+import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
+import br.com.congressodeti.workjava.rh.models.Cargo;
+import br.com.congressodeti.workjava.rh.validacoes.cargo.ValidadorSalarioMaximo;
 
 public class ValidadorSalarioMaximoTest {
 

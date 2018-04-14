@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.congressodeti.workjava.rh.exception.BusinessException;
-import br.com.congressodeti.workjava.rh.model.Cargo;
+import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
+import br.com.congressodeti.workjava.rh.models.Cargo;
 import br.com.congressodeti.workjava.rh.repositories.CargoRepository;
-import br.com.congressodeti.workjava.rh.validacao.cargo.ValidadorCargo;
+import br.com.congressodeti.workjava.rh.validacoes.cargo.ValidadorCargo;
 
 @Controller
 @RequestMapping("/cargos")
