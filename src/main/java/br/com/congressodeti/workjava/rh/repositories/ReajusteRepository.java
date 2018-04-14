@@ -13,6 +13,4 @@ public interface ReajusteRepository extends JpaRepository<Reajuste, Long> {
 
 	List<Reajuste> findAllByFuncionario(Funcionario funcionario);
 
-	Reajuste findTopByFuncionarioOrderByIdDesc(Funcionario funcionario);
-
 }

@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.congressodeti.workjava.rh.BusinessException;
+import br.com.congressodeti.workjava.rh.exception.BusinessException;
 import br.com.congressodeti.workjava.rh.model.Cargo;
 import br.com.congressodeti.workjava.rh.repositories.CargoRepository;
-import br.com.congressodeti.workjava.rh.validadores.cargo.ValidadorCadastroCargo;
+import br.com.congressodeti.workjava.rh.validacao.cargo.ValidadorCargo;
 
 @Controller
 @RequestMapping("/cargos")
 public class CargoController {
 	
 	private final CargoRepository repository;
-	private final List<ValidadorCadastroCargo> validadoresCadastroCargo;
+	private final List<ValidadorCargo> validadores;
 	
-	public CargoController(CargoRepository repository, List<ValidadorCadastroCargo> validadoresCadastroCargo) {
+	public CargoController(CargoRepository repository, List<ValidadorCargo> validadores) {
 		this.repository = repository;
-		this.validadoresCadastroCargo = validadoresCadastroCargo;
+		this.validadores = validadores;
 	}
 
 	@GetMapping
@@ -41,7 +41,8 @@ public class CargoController {
 	@PostMapping
 	public String salvar(Cargo novo, Model model) {
 		try {
-			validadoresCadastroCargo.forEach(v -> v.validar(novo));
+			validadores.stream().forEach(v -> v.valida(novo));
+			this.repository.save(novo);
 			return "redirect:/cargos";
 		} catch (BusinessException e) {
 			model.addAttribute("msgErro", e.getMessage());
@@ -52,7 +53,6 @@ public class CargoController {
 	@DeleteMapping
 	public String excluir(Long id) {
 		repository.deleteById(id);
-		
 		return "redirect:/cargos";
 	}
 
