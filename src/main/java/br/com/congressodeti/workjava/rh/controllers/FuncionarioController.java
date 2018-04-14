@@ -15,7 +15,6 @@ import br.com.congressodeti.workjava.rh.exceptions.BusinessException;
 import br.com.congressodeti.workjava.rh.models.Funcionario;
 import br.com.congressodeti.workjava.rh.models.Reajuste;
 import br.com.congressodeti.workjava.rh.repositories.CargoRepository;
-import br.com.congressodeti.workjava.rh.repositories.FuncionarioRepository;
 import br.com.congressodeti.workjava.rh.repositories.ReajusteRepository;
 import br.com.congressodeti.workjava.rh.services.funcionario.FuncionarioService;
 
@@ -23,21 +22,19 @@ import br.com.congressodeti.workjava.rh.services.funcionario.FuncionarioService;
 @RequestMapping("/funcionarios")
 public class FuncionarioController {
 	
-	private final FuncionarioRepository funcionarioRepository;
 	private final CargoRepository cargoRepository;
 	private final ReajusteRepository reajusteRepository;
-	private final FuncionarioService service;
+	private final FuncionarioService funcionarioService;
 	
-	public FuncionarioController(FuncionarioRepository funcionarioRepository, CargoRepository cargoRepository, ReajusteRepository reajusteRepository, FuncionarioService service) {
-		this.funcionarioRepository = funcionarioRepository;
+	public FuncionarioController(CargoRepository cargoRepository, ReajusteRepository reajusteRepository, FuncionarioService funcionarioService) {
 		this.cargoRepository = cargoRepository;
 		this.reajusteRepository = reajusteRepository;
-		this.service = service;
+		this.funcionarioService = funcionarioService;
 	}
 
 	@GetMapping
 	public String lista(Model model) {
-		List<Funcionario> todos = funcionarioRepository.findAll();
+		List<Funcionario> todos = funcionarioService.listarTodos();
 		model.addAttribute("funcionarios", todos);
 		return "funcionario/lista";
 	}
@@ -51,7 +48,7 @@ public class FuncionarioController {
 	@PostMapping
 	public String salvar(Funcionario novo, Model model) {
 		try {
-			service.salvar(novo);
+			funcionarioService.salvar(novo);
 			return "redirect:/funcionarios";
 		} catch (BusinessException e) {
 			model.addAttribute("msgErro", e.getMessage());
@@ -61,14 +58,13 @@ public class FuncionarioController {
 	
 	@DeleteMapping
 	public String excluir(Long id) {
-		funcionarioRepository.deleteById(id);
-		
+		funcionarioService.excluir(id);
 		return "redirect:/funcionarios";
 	}
 	
 	@GetMapping("/{id}/reajustes")
 	public String reajustes(@PathVariable("id") Long id, Model model) {
-		Funcionario selecionado = funcionarioRepository.getOne(id);
+		Funcionario selecionado = funcionarioService.buscarPorId(id);
 		List<Reajuste> reajustesConcedidos = reajusteRepository.findAllByFuncionario(selecionado);
 		model.addAttribute("funcionario", selecionado);
 		model.addAttribute("reajustes", reajustesConcedidos);
@@ -77,7 +73,7 @@ public class FuncionarioController {
 	
 	@PostMapping("/{id}/reajustes")
 	public String reajustar(@PathVariable("id") Long id, Reajuste novo, RedirectAttributes model) {
-		Funcionario selecionado = funcionarioRepository.getOne(id);
+		Funcionario selecionado = funcionarioService.buscarPorId(id);
 		novo.setFuncionario(selecionado);
 		reajusteRepository.save(novo);
 		return "redirect:/funcionarios";

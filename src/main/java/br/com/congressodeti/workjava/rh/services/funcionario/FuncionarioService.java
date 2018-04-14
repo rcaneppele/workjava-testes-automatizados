@@ -1,6 +1,7 @@
 package br.com.congressodeti.workjava.rh.services.funcionario;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,16 @@ public class FuncionarioService {
 		funcionarioRepository.save(novo);
 	}
 	
+	public Funcionario buscarPorId(Long id) {
+		return funcionarioRepository.getOne(id);
+	}
+	
+	public List<Funcionario> listarTodos() {
+		return funcionarioRepository.findAll();
+	}
+
+	public void excluir(Long id) {
+		funcionarioRepository.deleteById(id);
+	}
 
 }
