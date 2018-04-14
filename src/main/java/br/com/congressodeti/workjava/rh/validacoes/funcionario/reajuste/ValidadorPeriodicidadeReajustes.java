@@ -24,7 +24,7 @@ public class ValidadorPeriodicidadeReajustes implements ValidadorReajuste {
 		}
 		
 		Period intervalo = ultimoRecebido.getData().until(reajuste.getData());
-		if (intervalo.getMonths() < 6) {
+		if (intervalo.getYears() < 1 && intervalo.getMonths() < 6) {
 			throw new BusinessException("Funcionario nao pode receber reajuste pois recebeu outro a menos de 6 meses");
 		}
 	}
