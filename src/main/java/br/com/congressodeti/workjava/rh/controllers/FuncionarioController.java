@@ -56,7 +56,7 @@ public class FuncionarioController {
 			return "redirect:/funcionarios";
 		} catch (BusinessException e) {
 			model.addAttribute("msgErro", e.getMessage());
-			return "funcionario/form";
+			return formulario(model);
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping("/{id}/reajustes")
-	public String reajustar(@PathVariable("id") Long id, Reajuste novo, RedirectAttributes attributes) {
+	public String reajustar(@PathVariable("id") Long id, Reajuste novo, Model model, RedirectAttributes attributes) {
 		Funcionario selecionado = funcionarioService.buscarPorId(id);
 		novo.setFuncionario(selecionado);
 		
@@ -87,10 +87,9 @@ public class FuncionarioController {
 			attributes.addFlashAttribute("msgSucesso", "Reajuste cadastrado!");
 			return "redirect:/funcionarios";
 		} catch (BusinessException e) {
-			attributes.addFlashAttribute("msgErro", e.getMessage());
-			return "redirect:/funcionarios/" +id +"/reajustes";
+			model.addAttribute("msgErro", e.getMessage());
+			return reajustes(id, model);
 		}
-		
 	}
 
 }

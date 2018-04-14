@@ -37,12 +37,12 @@
 			<form method="post" action="<c:url value='/funcionarios/${funcionario.id}/reajustes' />">
 				<div class="form-group">
 					<label for="motivo">Motivo</label>
-					<input id="motivo" name="motivo" class="form-control" required="required">
+					<input id="motivo" name="motivo" class="form-control" required="required" value="${reajuste.motivo}">
 				</div>
 				
 				<div class="form-group">
 					<label for="valor">Valor</label>
-					<input id="valor" name="valor" class="form-control" required="required">
+					<input id="valor" name="valor" class="form-control" required="required" value="${reajuste.valor}">
 				</div>
 				
 				<input type="submit" value="Gravar" class="btn btn-primary">
